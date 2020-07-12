@@ -1,9 +1,10 @@
-import React from "react";
+import React, {FunctionComponent} from "react";
 import { useStore } from "../helpers/helpers";
-import { AuthenticatedLayout } from "../layouts/authenticated";
-import { Redirect } from "@reach/router";
+import { AuthenticatedLayout } from "../components/layouts/authenticated";
+import {Redirect, RouteComponentProps, RouterProps} from "@reach/router";
+import {GuestLayout} from "../components/layouts/guest";
 
-export const PrivateRoute = ({ component: Component, ...rest }) => {
+export const PrivateRoute: FunctionComponent<{ component: React.ComponentType } & RouteComponentProps> = ({ component: Component, ...rest }) => {
   const rootStore = useStore();
   const { userStore } = rootStore;
   const { isLoggedIn } = userStore;
@@ -20,6 +21,10 @@ export const PrivateRoute = ({ component: Component, ...rest }) => {
   );
 };
 
-export const PublicRoute = ({ component: Component, ...rest }) => {
-  return <Component {...rest} />;
+export const PublicRoute: FunctionComponent<{ component: React.ComponentType } & RouteComponentProps> = ({ component: Component, ...rest }) => {
+  return (
+      <GuestLayout>
+        <Component {...rest} />
+      </GuestLayout>
+    )
 };
