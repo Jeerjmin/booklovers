@@ -7,7 +7,7 @@ import RegisterPage from "../pages/auth/RegisterPage";
 
 const Routes = () => {
   return (
-    <Router>s
+    <Router>
       <PrivateRoute component={HomePage} path="/" />
       <PublicRoute default component={LoginPage} path="login" />
       <PublicRoute component={RegisterPage} path="register" />
